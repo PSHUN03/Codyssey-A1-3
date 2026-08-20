@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("fructus-theme");
+      if (saved === "dark" || saved === "light") {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    } catch (e) {}
+  })();
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FAQ — Fructus</title>
+<meta name="description" content="Fructus 복리 계산기와 AI 투자 코치에 대해 자주 묻는 질문 모음입니다." />
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/variables.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/animations.css" />
+<link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="site-header">
+  <nav class="nav container" aria-label="주요 메뉴">
+    <a href="index.html" class="nav-brand"><span class="nav-brand-mark">●</span> Fructus</a>
+    <button class="nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="primary-menu">
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-menu" id="primary-menu" data-nav-menu>
+      <a href="index.html" class="nav-link">홈 / 계산기</a>
+      <a href="learn.html" class="nav-link">복리 알아보기</a>
+      <a href="faq.html" class="nav-link" aria-current="page">FAQ</a>
+      <a href="contact.html" class="nav-link">문의하기</a>
+      <div class="nav-actions">
+        <button class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="다크 모드로 전환"></button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" style="padding-block: var(--space-12) var(--space-8);">
+    <div class="container">
+      <p class="hero-eyebrow">FAQ</p>
+      <h1 style="font-size: var(--fs-display);">자주 묻는 질문</h1>
+      <p class="hero-sub">계산 방식, 데이터 처리, AI 코치에 대해 자주 나오는 질문을 모았습니다.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <input class="input faq-search" type="search" data-faq-search placeholder="궁금한 내용을 검색해 보세요 (예: 세금, 저장, 수익률)" aria-label="FAQ 검색" />
+
+      <div class="faq-list" role="presentation">
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>연복리와 월복리 중 어느 쪽이 더 유리한가요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            같은 연이율이라면 복리 주기가 짧을수록(일복리 &gt; 월복리 &gt; 연복리) 최종 금액이 약간 더 큽니다.
+            다만 그 차이는 생각보다 크지 않습니다. 연 6% 기준 1년 후 금액 차이는 연복리 대비
+            월복리가 약 0.16%p, 일복리는 약 0.17%p 수준입니다. 실제로는 상품이 제공하는
+            주기를 그대로 선택하는 것이 가장 정확합니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>계산 결과에 세금이나 물가 상승이 반영되나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            아니요. Fructus는 세전(稅前) 기준이며 이자소득세, 물가 상승률, 수수료를 전혀
+            반영하지 않은 수학적 시뮬레이션입니다. 실제 수령액은 세금(일반적으로 이자소득세 15.4%)만큼
+            줄어들고, 물가 상승을 고려하면 실질 구매력은 표시된 금액보다 낮아집니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>목표 수익률은 몇 %로 설정해야 하나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            정답은 없지만, 참고 삼아 예금·적금은 연 3~4%, 채권 혼합형은 연 4~6%,
+            주식형 펀드나 ETF 장기 평균은 연 6~8% 수준이 종종 언급됩니다. 특정 수익률을
+            보장하는 상품은 없으므로, 보수적인 수치와 낙관적인 수치를 모두 넣어 범위를
+            비교해 보는 것을 권장합니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>이 계산기의 결과가 다른 계산기와 조금 다른 이유는 무엇인가요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            월 적립액을 "매월 말 납입(기말 납입)"으로 가정하고, 선택한 복리 주기의 연이율을
+            월 단위 실효이율로 환산해 더하기 때문입니다. 일부 계산기는 월초 납입을 가정하거나,
+            복리 주기와 무관하게 단순 월할 계산을 사용해 결과가 소폭 달라질 수 있습니다.
+            정확한 계산 가정은 <a href="learn.html" style="color:var(--color-accent); text-decoration:underline;">복리 알아보기</a> 페이지에 공식과 함께 공개되어 있습니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>입력한 정보(금액, 목표 등)는 서버에 저장되나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            복리 계산 자체는 전부 브라우저에서 즉시 계산되며 서버로 전송되지 않습니다.
+            AI 투자 코치를 사용할 때만 계산 결과 요약과 입력하신 목표 문장이 AI API 호출을 위해
+            일시적으로 서버(Vercel Serverless Function)를 거치며, 별도 데이터베이스에
+            저장하지 않습니다. 문의하기 폼의 내용은 운영자에게 전달할 목적으로만 사용됩니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>월 적립액은 매달 언제 납입되는 것으로 가정하나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            매월 "말일"에 납입하는 것으로 가정합니다(일반 연금, ordinary annuity). 따라서 첫 달에
+            납입한 금액은 그 달 안에는 이자가 붙지 않고, 다음 달부터 이자 계산에 포함됩니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>AI 투자 코치는 어떤 근거로 조언을 만드나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            화면에 계산된 최종 평가금액·총 납입 원금·총 이자·수익률과, 회원님이 직접 적은
+            목표/상황 문장을 함께 AI 모델에 전달해 목표 달성 가능성, 부족분, 실행 조언을
+            생성합니다. AI의 응답은 일반적인 참고용 정보이며, 특정 상품이나 종목을
+            추천하지 않고 개인 맞춤형 투자 자문도 아닙니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>AI 코치 응답이 오래 걸리거나 실패하면 어떻게 되나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            25초 안에 응답이 없으면 자동으로 "응답이 지연되고 있어요"라는 안내와 함께
+            요청이 취소됩니다. 서버 오류(5xx)나 요청 과다(429) 시에도 상황에 맞는 안내
+            문구와 다시 시도 버튼이 표시됩니다. 과도한 호출을 막기 위해 코치 사용 후에는
+            10초의 대기 시간이 적용됩니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>초기 금액이나 월 적립액에 상한이 있나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            네. 초기 금액은 1조원, 기간은 최대 100년(월 1,200개월 / 일 36,500일),
+            수익률은 -50%~100% 범위로 제한됩니다. 비현실적인 값으로 인한 화면 오류나
+            숫자 오버플로를 막기 위한 안전장치입니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>모바일에서도 그래프와 표를 볼 수 있나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            네. 그래프는 화면 너비에 맞춰 자동으로 크기가 조정되는 SVG이며, 표는 화면이
+            좁아지면 가로 스크롤로 전환되어 모든 열을 확인할 수 있습니다. 그래프의 각
+            지점은 마우스오버(모바일에서는 탭)로 해당 연도의 값을 볼 수 있습니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>계산 결과를 다른 사람과 공유할 수 있나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            계산을 실행하면 입력값이 주소창의 URL에 자동으로 반영됩니다. 이 URL을
+            복사해서 공유하면 상대방의 화면에 같은 입력값과 결과가 그대로 열립니다.
+            표는 "CSV 내보내기" 버튼으로 엑셀 등에서 열 수 있는 파일로 저장할 수 있습니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>다크 모드는 어떻게 켜나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            기기의 시스템 설정이 다크 모드면 Fructus도 자동으로 다크 모드로 열립니다.
+            우측 상단(모바일은 메뉴 안)의 토글 버튼으로 언제든 직접 켜고 끌 수 있으며,
+            선택한 값은 브라우저에 저장되어 다음 방문 시에도 유지됩니다.
+          </p></div></div>
+        </div>
+
+        <div class="accordion-item" data-open="false">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span>문의하기로 보낸 내용은 어떻게 처리되나요?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel"><div class="accordion-panel-inner"><p>
+            문의 내용은 운영진의 알림 채널로 전달되어 확인 후 답변드립니다. 알림 연동이
+            일시적으로 꺼져 있어도 문의 접수 자체는 항상 정상적으로 처리되며, 화면에는
+            접수 완료 메시지가 표시됩니다.
+          </p></div></div>
+        </div>
+
+      </div>
+
+      <div class="disclaimer-note" style="max-width:72ch; margin-top: var(--space-8);">
+        <span aria-hidden="true">ⓘ</span>
+        <span>Fructus의 모든 계산과 AI 코치 답변은 수학적 시뮬레이션 및 일반 정보 제공 목적이며, 투자 자문이나 수익을 보장하지 않습니다.</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="nav-brand"><span class="nav-brand-mark">●</span> Fructus</span>
+      <div class="footer-links">
+        <a href="learn.html">복리 알아보기</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">문의하기</a>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      Fructus는 학습 목적의 복리 계산 시뮬레이션 서비스입니다. 실제 투자 결과를 보장하지 않으며,
+      투자 자문에 해당하지 않습니다. 세금·수수료·물가 상승은 계산에 반영되지 않았습니다.
+    </p>
+  </div>
+</footer>
+
+<script src="js/faq.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/theme.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
