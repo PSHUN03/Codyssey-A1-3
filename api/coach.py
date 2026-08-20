@@ -15,9 +15,13 @@ import requests
 MAX_GOAL_LENGTH = 300
 MAX_BODY_BYTES = 8000
 REQUEST_TIMEOUT_SECONDS = 20
-MAX_OUTPUT_TOKENS = 700
+# Gemini 3 계열은 답변 전에 내부 '생각(thinking)' 토큰을 소비하며, 그 양도
+# maxOutputTokens 예산에서 함께 차감된다. 700으로 두면 생각만 하다 예산이
+# 바닥나 본문이 빈 응답이 돌아올 수 있어, 실제 답변이 담길 여유까지 포함해
+# 상한을 잡는다(과금 방어용 상한 자체는 그대로 유지).
+MAX_OUTPUT_TOKENS = 2048
 GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-3.6-flash"
 
 REQUIRED_NUMERIC_FIELDS = [
     "principal",
@@ -164,10 +168,6 @@ def _call_gemini(prompt, api_key, model):
         "generationConfig": {
             "maxOutputTokens": MAX_OUTPUT_TOKENS,
             "temperature": 0.6,
-            # 2.5 계열은 기본적으로 '생각(thinking)' 토큰을 소비한다. 이를 끄지
-            # 않으면 maxOutputTokens 예산을 내부 추론에 다 써버려 본문이 빈
-            # 응답이 돌아올 수 있으므로, 예산 전체를 실제 답변에 쓰도록 비활성화한다.
-            "thinkingConfig": {"thinkingBudget": 0},
         },
     }
     # 키는 URL 쿼리스트링 대신 헤더로 보낸다. URL에 담으면 프록시/로그에

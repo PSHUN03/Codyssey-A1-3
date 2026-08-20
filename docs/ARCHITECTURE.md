@@ -79,7 +79,7 @@ sequenceDiagram
     AI->>API: POST /api/coach (JSON, AbortController 25s)
     API->>API: JSON 파싱, 필드/길이 검증(실패 시 400)
     API->>API: os.environ["GEMINI_API_KEY"] 확인(없으면 500)
-    API->>Gemini: generateContent (timeout 20s, maxOutputTokens 700)
+    API->>Gemini: generateContent (timeout 20s, maxOutputTokens 2048)
     Gemini-->>API: 텍스트 응답(JSON 문자열)
     API->>API: JSON 파싱 및 스키마 검증
     API-->>AI: { diagnosis, gap, actions[3], caution }
@@ -97,7 +97,7 @@ sequenceDiagram
 | 계층 | 정책 |
 |---|---|
 | 클라이언트 | 목표 텍스트 300자 제한, 요청 완료 후 10초 쿨다운, 25초 타임아웃(AbortController) |
-| 서버 | 요청 본문 8,000바이트 초과 시 400, 목표 텍스트 300자 재검증, Gemini `maxOutputTokens=700` 상한, 외부 호출 20초 타임아웃 |
+| 서버 | 요청 본문 8,000바이트 초과 시 400, 목표 텍스트 300자 재검증, Gemini `maxOutputTokens=2048` 상한, 외부 호출 20초 타임아웃 |
 | 배포 설정 | `vercel.json`의 `api/coach.py` `maxDuration: 30`(Gemini 호출 20s + 파싱 여유), `api/contact.py`는 `maxDuration: 15`(웹훅 호출 10s 기준) |
 
 ## 5. 보안 원칙
