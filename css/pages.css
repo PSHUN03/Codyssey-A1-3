@@ -20,6 +20,7 @@
 .hero-sub {
   max-width: 64rem;
   font-size: var(--fs-body-lg);
+  font-weight: var(--fw-light);
 }
 
 .hero-actions {
@@ -54,6 +55,55 @@
 
 .result-metric-card {
   padding: var(--space-4);
+}
+
+.composition-card {
+  padding: var(--space-6);
+}
+
+.composition-bar {
+  display: flex;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--color-divider);
+  margin-block: var(--space-4);
+}
+
+.composition-bar-segment {
+  height: 100%;
+  width: 0%;
+  transition: width 900ms var(--ease-standard);
+}
+
+.composition-bar-principal {
+  background: var(--chart-principal);
+}
+
+.composition-bar-interest {
+  background: var(--chart-growth);
+}
+
+.composition-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+}
+
+.composition-legend strong {
+  color: var(--color-text-primary);
+  font-family: var(--font-numeric);
+  margin-left: 4px;
+}
+
+.composition-insight {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-divider);
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
 }
 
 .disclaimer-note {
@@ -107,6 +157,10 @@
   overflow: visible;
 }
 
+.chart-container svg text {
+  font-family: var(--font-numeric);
+}
+
 /* ---- 표 ---- */
 .table-section-head {
   display: flex;
@@ -157,6 +211,27 @@
   font-size: var(--fs-xs);
   color: var(--color-text-muted);
   margin-top: var(--space-2);
+}
+
+.ai-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-height: 220px;
+  justify-content: center;
+  border-style: dashed;
+  color: var(--color-text-muted);
+}
+
+.ai-empty-icon {
+  color: var(--color-accent);
+  font-size: 1.5rem;
+}
+
+.ai-empty-state p {
+  color: var(--color-text-muted);
+  line-height: var(--lh-normal);
 }
 
 .char-counter.is-over {

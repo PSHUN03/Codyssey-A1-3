@@ -9,8 +9,8 @@ window.FructusCalculator = (function () {
     PRINCIPAL_MAX: 1000000000000, // 1조원
     MONTHLY_MAX: 1000000000000, // 초기금액과 동일한 상한(오버플로 방지 목적, 문서 참고)
     PERIOD_MAX: { day: 36500, month: 1200, year: 100 },
-    RATE_MIN: -50,
-    RATE_MAX: 100,
+    RATE_MIN: 0,
+    RATE_MAX: 50,
   };
 
   var COMPOUND_M = { annual: 1, monthly: 12, daily: 365 };

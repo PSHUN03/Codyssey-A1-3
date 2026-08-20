@@ -20,6 +20,7 @@
   var elapsedEl = document.querySelector("[data-ai-elapsed]");
   var resultBox = document.querySelector("[data-ai-result]");
   var retryBtn = document.querySelector("[data-ai-retry]");
+  var emptyState = document.querySelector("[data-ai-empty]");
 
   var elapsedTimer = null;
   var cooldownTimer = null;
@@ -124,6 +125,8 @@
 
   function submit() {
     var goal = goalInput.value.trim();
+
+    if (emptyState) emptyState.hidden = true;
 
     if (!goal) {
       showError("목표를 한 줄이라도 입력해 주세요.");
