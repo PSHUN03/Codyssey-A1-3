@@ -59,28 +59,46 @@
   flex-direction: column;
 }
 
-.result-hero-card {
-  padding: var(--space-8);
+.result-summary-list {
+  padding: 0;
   margin-bottom: var(--space-4);
-  min-width: 0;
   overflow: hidden;
+}
+
+.result-summary-row {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-divider);
+  min-width: 0;
+}
+
+.result-summary-row:last-child {
+  border-bottom: none;
+}
+
+.result-summary-row:not(.is-hero) {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.result-summary-row:not(.is-hero) .result-metric-label {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.result-summary-row:not(.is-hero) .result-metric-value {
+  text-align: right;
+  min-width: 0;
+}
+
+.result-summary-row.is-hero {
+  padding: var(--space-6);
+  background: var(--color-accent-bg-soft);
 }
 
 .result-metric-value.is-hero {
-  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
-}
-
-.result-secondary-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-4);
-}
-
-.result-metric-card {
-  padding: var(--space-4);
-  min-width: 0;
-  overflow: hidden;
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
 }
 
 .composition-card {
@@ -513,11 +531,6 @@
 
 /* ================= 반응형 ================= */
 @media (max-width: 767px) {
-  .result-secondary-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-3);
-  }
-
   .calc-card {
     position: static;
   }
@@ -529,10 +542,8 @@
   .hero-actions .btn {
     width: 100%;
   }
-}
 
-@media (max-width: 420px) {
-  .result-secondary-grid {
-    grid-template-columns: 1fr;
+  .result-summary-row:not(.is-hero) {
+    padding-inline: var(--space-4);
   }
 }
