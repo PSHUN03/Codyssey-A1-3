@@ -1,0 +1,115 @@
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-regular);
+  transition: background-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: var(--fs-display);
+}
+
+h2 {
+  font-size: var(--fs-h1);
+}
+
+h3 {
+  font-size: var(--fs-h2);
+}
+
+p {
+  color: var(--color-text-secondary);
+}
+
+small,
+.text-muted {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+strong {
+  font-weight: var(--fw-semibold);
+}
+
+.container {
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-padding-inline);
+}
+
+main {
+  display: block;
+}
+
+section {
+  padding-block: var(--space-16);
+}
+
+section + section {
+  border-top: 1px solid var(--color-divider);
+}
+
+.section-heading {
+  margin-bottom: var(--space-8);
+}
+
+.section-heading p {
+  margin-top: var(--space-2);
+}
+
+/* 키보드 포커스만 강조 표시 (마우스 클릭 시 아웃라인 노출 방지) */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: var(--space-4);
+  z-index: 1000;
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-control);
+  transition: top var(--duration-fast) var(--ease-standard);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+@media (max-width: 767px) {
+  section {
+    padding-block: var(--space-12);
+  }
+}

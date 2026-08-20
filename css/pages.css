@@ -1,0 +1,378 @@
+/* ================= 홈 / 계산기 (index.html) ================= */
+.hero {
+  padding-block: var(--space-16) var(--space-12);
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-accent);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  margin-bottom: var(--space-4);
+}
+
+.hero h1 {
+  max-width: 18ch;
+  margin-bottom: var(--space-4);
+}
+
+.hero-sub {
+  max-width: 56ch;
+  font-size: var(--fs-body-lg);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+.calculator-layout {
+  align-items: start;
+}
+
+.calc-card {
+  position: sticky;
+  top: 5.5rem;
+}
+
+.quick-add-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.result-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.result-metric-card {
+  padding: var(--space-4);
+}
+
+.disclaimer-note {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-divider);
+  border-radius: var(--radius-control);
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-8);
+}
+
+/* ---- 그래프 ---- */
+.chart-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.chart-legend {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--fs-xs);
+  color: var(--color-text-secondary);
+}
+
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+}
+
+.chart-container svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* ---- 표 ---- */
+.table-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+/* ---- AI 투자 코치 ---- */
+.ai-coach-layout {
+  align-items: start;
+}
+
+.ai-coach-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.ai-coach-context .badge {
+  font-weight: var(--fw-regular);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 7rem;
+  resize: vertical;
+  background: var(--color-bg);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-control);
+  padding: var(--space-4);
+  font-size: var(--fs-body);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-bg-soft);
+}
+
+.char-counter {
+  display: flex;
+  justify-content: flex-end;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+
+.char-counter.is-over {
+  color: var(--color-error);
+}
+
+.ai-elapsed {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.ai-skeleton-block {
+  height: 1rem;
+  margin-bottom: var(--space-3);
+}
+
+.ai-result-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.ai-result-card {
+  padding: var(--space-4);
+}
+
+.ai-result-card h4 {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  font-weight: var(--fw-medium);
+  margin-bottom: var(--space-2);
+}
+
+.ai-action-list {
+  display: grid;
+  gap: var(--space-2);
+  counter-reset: action;
+}
+
+.ai-action-list li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--fs-body);
+}
+
+.ai-action-list li::before {
+  counter-increment: action;
+  content: counter(action);
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent-bg);
+  color: var(--color-accent-active);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= 복리 알아보기 (learn.html) ================= */
+.prose {
+  max-width: 72ch;
+}
+
+.prose p + p,
+.prose ul {
+  margin-top: var(--space-4);
+}
+
+.prose ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.prose ul li {
+  color: var(--color-text-secondary);
+}
+
+.example-box {
+  margin-top: var(--space-6);
+}
+
+.example-box table {
+  font-size: var(--fs-small);
+}
+
+.example-box th,
+.example-box td {
+  padding: var(--space-2) var(--space-3);
+  text-align: right;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.example-box th:first-child,
+.example-box td:first-child {
+  text-align: left;
+}
+
+.formula-block {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-medium);
+  text-align: center;
+  overflow-x: auto;
+  margin-block: var(--space-4);
+}
+
+.formula-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-2) var(--space-6);
+  margin-top: var(--space-4);
+}
+
+.formula-legend-item {
+  display: flex;
+  gap: var(--space-2);
+  font-size: var(--fs-small);
+}
+
+.formula-legend-item b {
+  color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+}
+
+.step-list {
+  counter-reset: step;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.step-list li {
+  display: flex;
+  gap: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+.step-list li::before {
+  counter-increment: step;
+  content: counter(step);
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-small);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-highlight-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.stat-highlight {
+  padding: var(--space-6);
+}
+
+.stat-highlight .result-metric-value {
+  display: block;
+  margin: var(--space-2) 0;
+}
+
+/* ================= FAQ (faq.html) ================= */
+.faq-list {
+  max-width: 76ch;
+}
+
+.faq-search {
+  max-width: 32rem;
+  margin-bottom: var(--space-8);
+}
+
+/* ================= 문의하기 (contact.html) ================= */
+.contact-layout {
+  max-width: 640px;
+}
+
+.contact-status {
+  margin-top: var(--space-6);
+}
+
+/* ================= 반응형 ================= */
+@media (max-width: 767px) {
+  .result-summary-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .calc-card {
+    position: static;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .result-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

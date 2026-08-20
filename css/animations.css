@@ -1,0 +1,51 @@
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up var(--duration-slow) var(--ease-standard) both;
+}
+
+/* SVG 차트 드로잉 애니메이션(자바스크립트가 stroke-dasharray/offset을 설정한 뒤 클래스 부여) */
+.chart-draw {
+  transition: stroke-dashoffset 1.1s var(--ease-standard);
+}
+
+.chart-area-draw {
+  transition: opacity var(--duration-slow) var(--ease-standard);
+}
+
+/* 사용자가 모션 축소를 선호하면 모든 애니메이션/트랜지션을 사실상 제거 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .chart-draw {
+    transition: none;
+  }
+}

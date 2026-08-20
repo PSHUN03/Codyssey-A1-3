@@ -1,0 +1,156 @@
+/*
+  Fructus 디자인 토큰
+  톤: Modern Finance + Editorial + Quiet Luxury
+  기본은 라이트 팔레트. 다크 모드는 [data-theme="dark"] 및
+  prefers-color-scheme: dark(사용자가 수동 선택하지 않은 경우)에서 오버라이드된다.
+*/
+
+:root {
+  /* ---- Color: 라이트(기본) ---- */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-text-muted: #888888;
+  --color-border: #e8e8e8;
+  --color-divider: #f0f0f0;
+
+  --color-accent: #c45a32;
+  --color-accent-hover: #b34f2c;
+  --color-accent-active: #9f4527;
+  --color-accent-bg: #f5ded5;
+  --color-accent-bg-soft: #faf0ec;
+  --color-accent-contrast: #ffffff;
+
+  --color-success: #2e7d4f;
+  --color-success-bg: #eaf6ee;
+  --color-error: #c73a3a;
+  --color-error-bg: #fceaea;
+
+  --color-input-border: #dcdcdc;
+  --color-overlay: rgba(17, 17, 17, 0.4);
+
+  /* ---- Typography ---- */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Pretendard Variable", "Apple SD Gothic Neo",
+    "Segoe UI", "Malgun Gothic", "Noto Sans KR", Roboto, sans-serif;
+
+  --fs-display: clamp(2.25rem, 1.7rem + 2.2vw, 3.5rem); /* 40~56px 큰 제목 */
+  --fs-h1: clamp(1.5rem, 1.3rem + 1vw, 2rem); /* 24~32px 일반 제목 */
+  --fs-h2: 1.375rem;
+  --fs-body: 1rem; /* 15~18px 본문 기준 */
+  --fs-body-lg: 1.125rem;
+  --fs-small: 0.875rem; /* 12~14px 보조 텍스트 */
+  --fs-xs: 0.8125rem;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-tight: 1.25;
+  --lh-normal: 1.55;
+
+  /* ---- Spacing ---- */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem;
+  --space-4: 1rem; /* 16px */
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem; /* 48px 섹션 간격 하한 */
+  --space-16: 4rem;
+  --space-24: 6rem; /* 96px 섹션 간격 상한 */
+
+  --page-padding-inline: clamp(1.5rem, 4vw, 2.5rem); /* 24~40px */
+  --content-max-width: 1200px;
+
+  /* ---- Radius / Shadow ---- */
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-pill: 999px;
+  --shadow-minimal: 0 1px 2px rgba(17, 17, 17, 0.04);
+  --shadow-elevated: 0 4px 16px rgba(17, 17, 17, 0.08);
+
+  /* ---- Control sizing ---- */
+  --control-height: 3rem; /* 48px */
+  --control-height-lg: 3.25rem; /* 52px */
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+
+  /* ---- Chart ---- */
+  --chart-principal: #b9b3ac;
+  --chart-growth: var(--color-accent);
+  --chart-growth-fill: rgba(196, 90, 50, 0.14);
+  --chart-grid: #ececec;
+  --chart-axis-text: var(--color-text-muted);
+
+  /* ---- Z-index ---- */
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-tooltip: 300;
+}
+
+/* ---- Color: 다크 모드 (시스템 설정을 따르는 경우) ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #14130f;
+    --color-surface: #1c1a16;
+    --color-text-primary: #f3f1ee;
+    --color-text-secondary: #b9b3ab;
+    --color-text-muted: #837d74;
+    --color-border: #322e28;
+    --color-divider: #262319;
+
+    --color-accent: #d9713f;
+    --color-accent-hover: #e5854f;
+    --color-accent-active: #f0975f;
+    --color-accent-bg: rgba(217, 113, 63, 0.18);
+    --color-accent-bg-soft: rgba(217, 113, 63, 0.08);
+    --color-accent-contrast: #14130f;
+
+    --color-success: #59b884;
+    --color-success-bg: rgba(89, 184, 132, 0.14);
+    --color-error: #e2726b;
+    --color-error-bg: rgba(226, 114, 107, 0.14);
+
+    --color-input-border: #3a352d;
+    --color-overlay: rgba(0, 0, 0, 0.6);
+
+    --chart-principal: #5f5a52;
+    --chart-growth-fill: rgba(217, 113, 63, 0.18);
+    --chart-grid: #2a271f;
+  }
+}
+
+/* ---- Color: 다크 모드 (사용자가 수동으로 토글한 경우, 시스템 설정보다 우선) ---- */
+:root[data-theme="dark"] {
+  --color-bg: #14130f;
+  --color-surface: #1c1a16;
+  --color-text-primary: #f3f1ee;
+  --color-text-secondary: #b9b3ab;
+  --color-text-muted: #837d74;
+  --color-border: #322e28;
+  --color-divider: #262319;
+
+  --color-accent: #d9713f;
+  --color-accent-hover: #e5854f;
+  --color-accent-active: #f0975f;
+  --color-accent-bg: rgba(217, 113, 63, 0.18);
+  --color-accent-bg-soft: rgba(217, 113, 63, 0.08);
+  --color-accent-contrast: #14130f;
+
+  --color-success: #59b884;
+  --color-success-bg: rgba(89, 184, 132, 0.14);
+  --color-error: #e2726b;
+  --color-error-bg: rgba(226, 114, 107, 0.14);
+
+  --color-input-border: #3a352d;
+  --color-overlay: rgba(0, 0, 0, 0.6);
+
+  --chart-principal: #5f5a52;
+  --chart-growth-fill: rgba(217, 113, 63, 0.18);
+  --chart-grid: #2a271f;
+}
