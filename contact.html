@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("fructus-theme");
+      if (saved === "dark" || saved === "light") {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    } catch (e) {}
+  })();
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>문의하기 — Fructus</title>
+<meta name="description" content="Fructus 서비스에 대한 문의, 제안, 오류 신고를 남겨주세요." />
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/variables.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/animations.css" />
+<link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="site-header">
+  <nav class="nav container" aria-label="주요 메뉴">
+    <a href="index.html" class="nav-brand"><span class="nav-brand-mark">●</span> Fructus</a>
+    <button class="nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="primary-menu">
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-menu" id="primary-menu" data-nav-menu>
+      <a href="index.html" class="nav-link">홈 / 계산기</a>
+      <a href="learn.html" class="nav-link">복리 알아보기</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link" aria-current="page">문의하기</a>
+      <div class="nav-actions">
+        <button class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="다크 모드로 전환"></button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" style="padding-block: var(--space-12) var(--space-8);">
+    <div class="container">
+      <p class="hero-eyebrow">CONTACT</p>
+      <h1 style="font-size: var(--fs-display);">문의하기</h1>
+      <p class="hero-sub">서비스 이용 중 궁금한 점이나 오류, 제안이 있다면 알려주세요.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <form class="card contact-layout" data-contact-form novalidate>
+        <div class="field">
+          <label class="field-label" for="contact-name">이름</label>
+          <input class="input" type="text" id="contact-name" name="name" autocomplete="name" />
+          <p class="field-error" data-error-for="contact-name"></p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="contact-email">이메일</label>
+          <input class="input" type="email" id="contact-email" name="email" autocomplete="email" />
+          <p class="field-error" data-error-for="contact-email"></p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="contact-type">문의 유형</label>
+          <select class="select" id="contact-type" name="type">
+            <option value="general">일반 문의</option>
+            <option value="bug">오류 신고</option>
+            <option value="feature">기능 제안</option>
+            <option value="etc">기타</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="contact-message">문의 내용</label>
+          <textarea class="textarea" id="contact-message" name="message" maxlength="1000" placeholder="문의하실 내용을 자유롭게 적어주세요."></textarea>
+          <p class="field-error" data-error-for="contact-message"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" data-contact-submit>
+          <span class="btn-label">문의 보내기</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+
+        <div class="contact-status" data-contact-status hidden></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="nav-brand"><span class="nav-brand-mark">●</span> Fructus</span>
+      <div class="footer-links">
+        <a href="learn.html">복리 알아보기</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">문의하기</a>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      Fructus는 학습 목적의 복리 계산 시뮬레이션 서비스입니다. 실제 투자 결과를 보장하지 않으며,
+      투자 자문에 해당하지 않습니다. 세금·수수료·물가 상승은 계산에 반영되지 않았습니다.
+    </p>
+  </div>
+</footer>
+
+<script src="js/analytics.js"></script>
+<script src="js/contact.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/theme.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
