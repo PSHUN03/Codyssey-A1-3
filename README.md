@@ -33,7 +33,7 @@ A1-3/
 ├─ fonts/      # Hana2 웹폰트(WOFF2, 자체 호스팅)
 ├─ js/         # calculator / chart / ui / ai / share / nav / theme / faq / contact / analytics
 ├─ api/        # coach.py(AI 코치), contact.py(문의 웹훅)
-├─ docs/       # 기획서·아키텍처·계산공식·배포·테스트·보너스·학습·AI사용로그 문서
+├─ docs/       # 기획서·아키텍처·계산공식·테스트·보너스·학습·AI사용로그 문서
 ├─ requirements.txt
 └─ vercel.json
 ```
