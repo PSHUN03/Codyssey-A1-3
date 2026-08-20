@@ -53,6 +53,11 @@ main {
   display: block;
 }
 
+/* .btn 등 display를 지정하는 클래스보다 hidden 속성이 항상 우선하도록 강제 */
+[hidden] {
+  display: none !important;
+}
+
 section {
   padding-block: var(--space-16);
 }
