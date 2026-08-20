@@ -7,7 +7,8 @@
 
   var MAX_GOAL_LENGTH = 300;
   var COOLDOWN_MS = 10000;
-  var TIMEOUT_MS = 25000;
+  // 서버(30초)가 먼저 포기하고 안내 메시지를 돌려줄 수 있도록 그보다 길게 잡는다.
+  var TIMEOUT_MS = 38000;
 
   var form = document.querySelector("[data-ai-form]");
   if (!form) return;

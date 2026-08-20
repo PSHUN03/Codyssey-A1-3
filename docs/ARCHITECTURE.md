@@ -97,11 +97,28 @@ sequenceDiagram
 | 계층 | 정책 |
 |---|---|
 | 클라이언트 | 목표 텍스트 300자 제한, 요청 완료 후 10초 쿨다운, 25초 타임아웃(AbortController) |
-| 서버 | 요청 본문 8,000바이트 초과 시 400, 목표 텍스트 300자 재검증, Gemini `maxOutputTokens=2048` 상한, 외부 호출 20초 타임아웃 |
-| 배포 설정 | `vercel.json`의 `api/coach.py` `maxDuration: 30`(Gemini 호출 20s + 파싱 여유), `api/contact.py`는 `maxDuration: 15`(웹훅 호출 10s 기준) |
+| 서버 | 요청 본문 8,000바이트 초과 시 400, 목표 텍스트 300자 재검증, Gemini `maxOutputTokens=4096` 상한, 외부 호출 30초 타임아웃 |
+| 배포 설정 | `vercel.json`의 `api/coach.py` `maxDuration: 50`(서버 30s < 클라이언트 38s < 함수 50s 순서 보장), `api/contact.py`는 `maxDuration: 15`(웹훅 호출 10s 기준) |
 
 ## 5. 보안 원칙
 
 - API 키(`GEMINI_API_KEY`, `DISCORD_WEBHOOK_URL`)는 Vercel 환경 변수로만 관리하며 코드에 하드코딩하지 않는다.
 - `api/coach.py`, `api/contact.py`는 `log_message()`를 오버라이드해 기본 접근 로그(요청 경로 등)를 남기지 않도록 최소화했고, 예외 메시지에 키 값이나 트레이스백을 절대 포함하지 않는다.
 - `.env`는 `.gitignore`에 포함되며 `.env.example`만 저장소에 커밋한다.
+- Gemini 호출 시 키는 URL 쿼리스트링(`?key=`)이 아니라 `x-goog-api-key` 헤더로 보낸다.
+  URL에 담으면 프록시·접근 로그·리퍼러에 키가 그대로 남을 수 있기 때문이다.
+
+### 키 유출 시 대응 절차
+
+키가 커밋에 포함됐거나 외부에 노출된 정황이 있으면 **아래 순서를 그대로** 따른다.
+노출된 키는 회수할 수 없으므로, 커밋 이력 정리보다 **폐기·재발급이 항상 먼저**다.
+
+1. **즉시 폐기**: Google AI Studio에서 해당 API 키를 삭제한다(Discord 웹훅이면 해당 웹훅 삭제).
+   이 시점에 노출된 값은 무효가 되어 실질적인 피해가 차단된다.
+2. **재발급**: 새 키를 발급받는다.
+3. **환경 변수 교체**: Vercel → Settings → Environment Variables에서 값을 교체하고
+   **Redeploy**한다(환경 변수는 새 배포부터 적용되므로 재배포하지 않으면 반영되지 않는다).
+4. **커밋 이력 정리**: 아직 push 전이면 `git reset`으로 해당 커밋을 되돌린다.
+   이미 push했다면 `git filter-repo`(또는 BFG)로 히스토리 전체에서 해당 파일을 제거한 뒤
+   `git push --force`한다. 협업 저장소라면 되돌리기 어려운 작업이므로 반드시 사전 공지한다.
+5. **재발 방지 확인**: `.gitignore`에 `.env`가 있는지, `git status`에 `.env`가 잡히지 않는지 확인한다.

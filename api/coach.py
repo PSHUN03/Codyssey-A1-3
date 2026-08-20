@@ -14,7 +14,10 @@ import requests
 
 MAX_GOAL_LENGTH = 300
 MAX_BODY_BYTES = 8000
-REQUEST_TIMEOUT_SECONDS = 20
+# Gemini 3 계열은 응답 생성이 2.x보다 느려 여유가 필요하다. 이 값은
+# 클라이언트 타임아웃(js/ai.js 38초)보다 반드시 짧아야 사용자가 '네트워크
+# 오류'가 아닌 서버의 정상 안내 메시지를 받는다.
+REQUEST_TIMEOUT_SECONDS = 30
 # Gemini 3 계열은 답변 전에 내부 '생각(thinking)' 토큰을 소비하며, 그 양도
 # maxOutputTokens 예산에서 함께 차감된다. 예산이 빠듯하면 생각하다가 본문이
 # 중간에 잘려(JSON이 닫히지 않은 채) 돌아오므로, 실제 답변이 온전히 담길
@@ -95,17 +98,17 @@ def _build_prompt(data):
     unit_label = {"day": "일", "month": "개월", "year": "년"}[data["periodUnit"]]
     compounding_label = {"annual": "연복리", "monthly": "월복리", "daily": "일복리"}[data["compounding"]]
 
+    # 출력 형식은 responseSchema가 API 차원에서 강제하므로, 프롬프트에서는
+    # 스키마를 반복하지 않고 '분량 제한'에만 집중한다. 답변이 길어질수록
+    # 생성 시간이 늘어 타임아웃 위험이 커지기 때문에 분량 제한이 곧 안정성이다.
     return (
-        "당신은 신중하고 현실적인 개인 재무 코치입니다. 아래 복리 계산 결과와 "
-        "사용자의 목표를 보고, 반드시 아래 JSON 스키마만 출력하세요. "
-        "마크다운이나 설명 문장 없이 JSON 객체 하나만 출력해야 합니다.\n\n"
-        "스키마:\n"
-        "{{\n"
-        '  "diagnosis": "목표 달성 가능성에 대한 2~3문장 진단",\n'
-        '  "gap": "부족분 또는 여유분에 대한 해석 2~3문장",\n'
-        '  "actions": ["실행 가능한 조언 1", "실행 가능한 조언 2", "실행 가능한 조언 3"],\n'
-        '  "caution": "투자 자문이 아니라는 점을 포함한 주의사항 한 문장"\n'
-        "}}\n\n"
+        "당신은 신중하고 현실적인 개인 재무 코치입니다. "
+        "아래 복리 계산 결과와 사용자의 목표를 보고 진단해 주세요.\n\n"
+        "분량 규칙(반드시 지킬 것):\n"
+        "- diagnosis: 목표 달성 가능성 진단, 최대 2문장\n"
+        "- gap: 부족분 또는 여유분 해석, 최대 2문장\n"
+        "- actions: 실행 가능한 조언 정확히 3개, 각 항목 45자 이내\n"
+        "- caution: 투자 자문이 아니라는 점을 포함한 주의사항, 1문장\n\n"
         "계산 조건:\n"
         "- 초기 금액: {principal}\n"
         "- 월 적립액: {monthly}\n"
@@ -117,8 +120,8 @@ def _build_prompt(data):
         "- 총 이자 수익: {interest}\n"
         "- 총 수익률: {return_rate}%\n\n"
         "사용자가 적은 목표/상황: \"{goal}\"\n\n"
-        "조언은 한국어로, 구체적이고 실행 가능하게 작성하세요. 특정 종목이나 "
-        "금융상품을 추천하지 마세요."
+        "한국어로, 간결하고 실행 가능하게 작성하세요. 특정 종목이나 "
+        "금융상품은 추천하지 마세요."
     ).format(
         principal=_won(data["principal"]),
         monthly=_won(data["monthlyPayment"]),

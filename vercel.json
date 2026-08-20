@@ -1,6 +1,10 @@
 {
   "functions": {
-    "api/coach.py": { "maxDuration": 30 },
-    "api/contact.py": { "maxDuration": 15 }
+    "api/coach.py": {
+      "maxDuration": 50
+    },
+    "api/contact.py": {
+      "maxDuration": 15
+    }
   }
 }

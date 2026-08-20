@@ -2,7 +2,7 @@
 
 초기 금액·월 적립액·목표 수익률을 입력하면 복리로 자라나는 자산을 그래프·표로 보여주고, AI 투자 코치가 목표 달성 전략을 제안하는 복리 계산 웹 서비스입니다.
 
-**배포 URL**: <<DEPLOY_URL>>
+**배포 URL**: <https://codyssey-a1-3-alpha.vercel.app/>
 
 ## 핵심 기능
 
@@ -12,6 +12,40 @@
 - **AI 투자 코치**: 계산 결과 + 목표 문장을 분석해 달성 가능성·부족분·실행 조언 3가지 제공
 - 빈 입력 / API 오류 / 타임아웃 3종 실패 처리 및 재시도
 - 다크 모드, 마이크로 인터랙션, 문의 폼 → Discord 웹훅 연동(보너스)
+
+## 화면 미리보기
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/01_desktop_home.png" alt="데스크톱 홈 화면" /></td>
+    <td width="50%"><img src="docs/screenshots/02_desktop_result.png" alt="복리 계산 결과" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>홈 — 데스크톱</b></td>
+    <td align="center"><b>복리 계산 결과</b></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/05_desktop_ai_coach_success.png" alt="AI 투자 코치 응답 화면" /></td>
+    <td><img src="docs/screenshots/15_dark_mode.png" alt="다크 모드 화면" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>AI 투자 코치 (실제 응답)</b></td>
+    <td align="center"><b>다크 모드</b></td>
+  </tr>
+</table>
+
+<img src="docs/screenshots/03_desktop_chart.png" alt="연도별 성장 그래프" />
+<p align="center"><b>연도별 성장 그래프 — 외부 라이브러리 없이 순수 SVG로 구현</b></p>
+
+<p align="center">
+  <img src="docs/screenshots/07_mobile_home.png" alt="모바일 홈" width="24%" />
+  <img src="docs/screenshots/08_mobile_menu.png" alt="모바일 햄버거 메뉴" width="24%" />
+  <img src="docs/screenshots/09_mobile_result.png" alt="모바일 계산 결과" width="24%" />
+  <img src="docs/screenshots/10_mobile_ai_coach.png" alt="모바일 AI 코치" width="24%" />
+</p>
+<p align="center"><b>모바일 반응형 — 홈 / 메뉴 / 계산 결과 / AI 코치</b></p>
+
+> 전체 증빙 스크린샷 14종은 [docs/SCREENSHOTS.md](docs/SCREENSHOTS.md)에서 확인할 수 있습니다.
 
 ## 기술 스택
 
@@ -78,3 +112,4 @@ python -m http.server 5500   # 프론트엔드 정적 서버 (api/*.py는 로컬
 - [보너스 과제 설계](docs/BONUS.md)
 - [학습 목표 정리](docs/LEARNING.md)
 - [AI 코딩 도구 사용 로그](docs/AI_USAGE_LOG.md)
+- [증빙 스크린샷 전체](docs/SCREENSHOTS.md)
