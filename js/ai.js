@@ -179,7 +179,9 @@
         if (!res.ok) {
           throw { kind: "http", status: res.status };
         }
-        return res.json();
+        return res.json().catch(function () {
+          throw { kind: "parse" };
+        });
       })
       .then(function (data) {
         setLoading(false);
@@ -195,6 +197,8 @@
           showError("응답이 지연되고 있어요. 다시 시도해 주세요.");
         } else if (err && err.kind === "http") {
           showError(statusMessage(err.status));
+        } else if (err && err.kind === "parse") {
+          showError("서버 응답을 해석하지 못했습니다. 잠시 후 다시 시도해 주세요.");
         } else {
           showError("네트워크 연결을 확인한 뒤 다시 시도해 주세요.");
         }

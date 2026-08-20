@@ -162,6 +162,18 @@ def _call_gemini(prompt, api_key, model):
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
+        # 예상하지 못한 예외로 커넥션이 응답 없이 끊기는 것을 막기 위한
+        # 최상위 안전망. 이 아래 로직에서 무엇이 터지든 항상 유효한
+        # JSON 응답을 클라이언트에 돌려준다.
+        try:
+            self._handle_post()
+        except Exception:
+            try:
+                _json_response(self, 500, {"error": "일시적인 오류가 발생했습니다."})
+            except Exception:
+                pass
+
+    def _handle_post(self):
         try:
             content_length = int(self.headers.get("Content-Length", 0))
         except (TypeError, ValueError):
@@ -171,7 +183,11 @@ class handler(BaseHTTPRequestHandler):
             _json_response(self, 400, {"error": "요청 본문 크기가 올바르지 않습니다."})
             return
 
-        raw_body = self.rfile.read(content_length)
+        try:
+            raw_body = self.rfile.read(content_length)
+        except Exception:
+            _json_response(self, 400, {"error": "요청 본문을 읽지 못했습니다."})
+            return
 
         try:
             data = json.loads(raw_body.decode("utf-8"))
