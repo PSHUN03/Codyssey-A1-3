@@ -10,6 +10,7 @@ A1-3/
 ├─ contact.html            # 문의하기
 ├─ css/
 │  ├─ reset.css            # 최소 브라우저 리셋
+│  ├─ fonts.css             # Hana2 자체 호스팅 웹폰트 @font-face 등록
 │  ├─ variables.css        # 디자인 토큰(색/타이포/스페이싱), 라이트+다크 팔레트
 │  ├─ base.css              # 전역 타이포그래피, 컨테이너, 포커스 스타일
 │  ├─ layout.css            # 헤더/네비게이션/푸터/12-col 그리드
@@ -31,6 +32,7 @@ A1-3/
 │  ├─ coach.py                # AI 투자 코치 엔드포인트 (Gemini 호출)
 │  └─ contact.py              # 문의 접수 엔드포인트 (Discord 웹훅)
 ├─ images/                    # 정적 이미지(파비콘 등, 현재 없음 — data URI 사용)
+├─ fonts/                     # Hana2 웹폰트(WOFF2, 자체 호스팅)
 ├─ docs/                      # 문서 (본 파일 포함)
 ├─ requirements.txt           # Python 의존성 (requests)
 └─ vercel.json                 # Serverless Function maxDuration 설정

@@ -18,6 +18,7 @@
 | 영역 | 스택 |
 |---|---|
 | 프론트엔드 | 순수 HTML / CSS / JavaScript (프레임워크·차트 라이브러리 미사용) |
+| 타이포그래피 | Hana2 웹폰트 자체 호스팅(WOFF2, 6종 굵기 + 숫자 전용 CM 컷) |
 | 백엔드 | Vercel Serverless Functions (Python, `BaseHTTPRequestHandler`) |
 | AI API | Google Gemini API (`gemini-2.0-flash`) |
 | 자동화 | Discord Webhook (문의 알림) |
@@ -28,7 +29,8 @@
 ```
 A1-3/
 ├─ index.html / learn.html / faq.html / contact.html
-├─ css/        # 디자인 토큰, 레이아웃, 컴포넌트, 애니메이션
+├─ css/        # 디자인 토큰, 레이아웃, 컴포넌트, 애니메이션, 폰트
+├─ fonts/      # Hana2 웹폰트(WOFF2, 자체 호스팅)
 ├─ js/         # calculator / chart / ui / ai / nav / theme / faq / contact / analytics
 ├─ api/        # coach.py(AI 코치), contact.py(문의 웹훅)
 ├─ docs/       # 기획서·아키텍처·계산공식·배포·테스트·보너스·학습·AI사용로그 문서
