@@ -8,7 +8,7 @@
 
 - 초기금액/월적립액/투자기간(일·월·년)/목표수익률/복리주기(연·월·일) 입력 및 실시간 검증
 - 결과 요약 카드 4종(카운트업 애니메이션) + 순수 SVG 연도별 성장 그래프(원금 vs 평가금액)
-- 연도별 상세 표, CSV 내보내기, URL 쿼리스트링으로 결과 공유
+- 연도별 상세 표, CSV 내보내기, URL 쿼리스트링 및 결과 이미지(PNG) 저장·공유
 - **AI 투자 코치**: 계산 결과 + 목표 문장을 분석해 달성 가능성·부족분·실행 조언 3가지 제공
 - 빈 입력 / API 오류 / 타임아웃 3종 실패 처리 및 재시도
 - 다크 모드, 마이크로 인터랙션, 문의 폼 → Discord 웹훅 연동(보너스)
@@ -31,7 +31,7 @@ A1-3/
 ├─ index.html / learn.html / faq.html / contact.html
 ├─ css/        # 디자인 토큰, 레이아웃, 컴포넌트, 애니메이션, 폰트
 ├─ fonts/      # Hana2 웹폰트(WOFF2, 자체 호스팅)
-├─ js/         # calculator / chart / ui / ai / nav / theme / faq / contact / analytics
+├─ js/         # calculator / chart / ui / ai / share / nav / theme / faq / contact / analytics
 ├─ api/        # coach.py(AI 코치), contact.py(문의 웹훅)
 ├─ docs/       # 기획서·아키텍처·계산공식·배포·테스트·보너스·학습·AI사용로그 문서
 ├─ requirements.txt

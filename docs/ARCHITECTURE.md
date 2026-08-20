@@ -23,6 +23,7 @@ A1-3/
 │  ├─ chart.js                # SVG 영역 차트 렌더링
 │  ├─ ui.js                   # index.html 폼↔결과↔그래프↔표 오케스트레이션
 │  ├─ ai.js                   # AI 투자 코치 fetch 및 3종 실패 처리
+│  ├─ share.js                 # 결과를 Canvas로 그려 PNG 저장/Web Share API 공유
 │  ├─ nav.js                  # 모바일 메뉴, 활성 링크 표시
 │  ├─ theme.js                # 다크모드 토글(저장은 인라인 스크립트가 선행)
 │  ├─ faq.js                  # 아코디언 개폐, 검색 필터
