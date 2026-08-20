@@ -121,8 +121,8 @@
             <div class="field">
               <label class="field-label" for="annualRateNumber">목표 수익률 (연, %)</label>
               <div class="range-row">
-                <input class="range" type="range" id="annualRateRange" min="0" max="50" step="0.1" value="5" />
-                <input class="input range-value" style="width:5.5rem; height:2.5rem; text-align:right;" type="number" id="annualRateNumber" min="0" max="50" step="0.01" value="5" />
+                <input class="range" type="range" id="annualRateRange" min="0" max="50" step="1" value="5" />
+                <input class="input range-value" style="width:5.5rem; height:2.5rem; text-align:right;" type="number" id="annualRateNumber" min="0" max="50" step="1" value="5" />
               </div>
               <p class="field-error" data-error-for="annualRatePercent"></p>
             </div>
@@ -142,13 +142,14 @@
         </div>
 
         <div class="col-span-7">
-          <div data-result-section aria-live="polite">
-            <div class="result-summary-grid">
-              <div class="card result-metric-card">
-                <p class="result-metric-label">최종 평가금액</p>
-                <p class="result-metric-value is-accent" data-metric-final>0원</p>
-                <p class="result-metric-sub" data-metric-final-sub></p>
-              </div>
+          <div data-result-section class="result-panel" aria-live="polite">
+            <div class="card card-highlight result-hero-card">
+              <p class="result-metric-label">최종 평가금액</p>
+              <p class="result-metric-value is-accent is-hero" data-metric-final>0원</p>
+              <p class="result-metric-sub" data-metric-final-sub></p>
+            </div>
+
+            <div class="result-secondary-grid">
               <div class="card result-metric-card">
                 <p class="result-metric-label">총 납입 원금</p>
                 <p class="result-metric-value" data-metric-principal>0원</p>
@@ -176,13 +177,21 @@
               <p class="composition-insight" data-composition-insight></p>
             </div>
 
-            <div class="disclaimer-note">
-              <span aria-hidden="true">ⓘ</span>
-              <span>
-                이 결과는 수학적 시뮬레이션이며 투자 자문이나 수익을 보장하지 않습니다.
-                <br />
-                세금과 물가 상승은 반영되지 않았습니다.
-              </span>
+            <div class="result-footer-group">
+              <button type="button" class="btn btn-secondary btn-block" data-share-image>
+                <span class="btn-label">결과 이미지 저장·공유</span>
+                <span class="btn-spinner" aria-hidden="true"></span>
+              </button>
+              <p class="share-status" data-share-status aria-live="polite"></p>
+
+              <div class="disclaimer-note">
+                <span aria-hidden="true">ⓘ</span>
+                <span>
+                  이 결과는 수학적 시뮬레이션이며 투자 자문이나 수익을 보장하지 않습니다.
+                  <br />
+                  세금과 물가 상승은 반영되지 않았습니다.
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -228,42 +237,47 @@
 
   <section id="ai-coach">
     <div class="container">
+      <div class="section-heading">
+        <h2>AI 투자 코치</h2>
+        <p>계산 결과를 바탕으로, 목표 달성 가능성과 실행 전략을 AI가 진단합니다.</p>
+      </div>
+
       <div class="grid ai-coach-layout">
         <div class="col-span-5">
-          <div class="section-heading">
-            <h2>AI 투자 코치</h2>
-            <p>계산 결과를 바탕으로, 목표 달성 가능성과 실행 전략을 AI가 진단합니다.</p>
-          </div>
-          <form data-ai-form>
+          <form class="card ai-form-card" data-ai-form>
             <div class="field">
               <label class="field-label" for="ai-goal">지금 상황이나 목표를 알려주세요</label>
               <textarea class="textarea" id="ai-goal" data-ai-goal maxlength="400" placeholder="예: 35살에 전세보증금 3억을 만들고 싶어요. 지금처럼 계속 투자해도 될까요?"></textarea>
               <div class="char-counter" data-ai-counter>0 / 300</div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block" data-ai-submit>
-              <span class="btn-label">AI 코치에게 물어보기</span>
-              <span class="btn-spinner" aria-hidden="true"></span>
-            </button>
-            <button type="button" class="btn btn-secondary btn-block" data-ai-retry hidden style="margin-top:8px;">다시 시도</button>
+            <div class="ai-form-actions">
+              <button type="submit" class="btn btn-primary btn-block" data-ai-submit>
+                <span class="btn-label">AI 코치에게 물어보기</span>
+                <span class="btn-spinner" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-block" data-ai-retry hidden style="margin-top:8px;">다시 시도</button>
+            </div>
           </form>
         </div>
 
         <div class="col-span-7">
-          <div class="card ai-empty-state" data-ai-empty>
-            <span class="ai-empty-icon" aria-hidden="true">✦</span>
-            <p>왼쪽에 목표나 상황을 적고 "AI 코치에게 물어보기"를 누르면,<br />여기에 달성 가능성 진단과 실행 조언이 카드로 표시돼요.</p>
+          <div class="ai-answer-panel">
+            <div class="card ai-empty-state" data-ai-empty>
+              <span class="ai-empty-icon" aria-hidden="true">✦</span>
+              <p>왼쪽에 목표나 상황을 적고 "AI 코치에게 물어보기"를 누르면,<br />여기에 달성 가능성 진단과 실행 조언이 카드로 표시돼요.</p>
+            </div>
+
+            <div data-ai-error hidden aria-live="assertive"></div>
+
+            <div class="card ai-loading-card" data-ai-loading hidden aria-live="polite">
+              <div class="skeleton ai-skeleton-block" style="width:60%;"></div>
+              <div class="skeleton ai-skeleton-block" style="width:100%; height:4.5rem;"></div>
+              <div class="skeleton ai-skeleton-block" style="width:100%; height:4.5rem;"></div>
+              <p class="ai-elapsed" data-ai-elapsed>0초 경과</p>
+            </div>
+
+            <div data-ai-result hidden aria-live="polite"></div>
           </div>
-
-          <div data-ai-error hidden aria-live="assertive"></div>
-
-          <div data-ai-loading hidden aria-live="polite">
-            <div class="skeleton ai-skeleton-block" style="width:60%;"></div>
-            <div class="skeleton ai-skeleton-block" style="width:100%; height:4.5rem;"></div>
-            <div class="skeleton ai-skeleton-block" style="width:100%; height:4.5rem;"></div>
-            <p class="ai-elapsed" data-ai-elapsed>0초 경과</p>
-          </div>
-
-          <div data-ai-result hidden aria-live="polite"></div>
         </div>
       </div>
     </div>
@@ -296,6 +310,7 @@
 <script src="js/chart.js"></script>
 <script src="js/analytics.js"></script>
 <script src="js/ui.js"></script>
+<script src="js/share.js"></script>
 <script src="js/ai.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/theme.js"></script>

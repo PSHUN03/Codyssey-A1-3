@@ -30,12 +30,19 @@
 }
 
 .calculator-layout {
-  align-items: start;
+  align-items: stretch;
 }
 
 .calc-card {
   position: sticky;
   top: 5.5rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.calc-card [data-calc-submit] {
+  margin-top: auto;
 }
 
 .quick-add-row {
@@ -46,11 +53,26 @@
   flex-wrap: wrap;
 }
 
-.result-summary-grid {
+.result-panel {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-hero-card {
+  padding: var(--space-8);
+  margin-bottom: var(--space-4);
+}
+
+.result-metric-value.is-hero {
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
+}
+
+.result-secondary-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-4);
 }
 
 .result-metric-card {
@@ -59,6 +81,19 @@
 
 .composition-card {
   padding: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.result-footer-group {
+  margin-top: auto;
+}
+
+.share-status {
+  min-height: 1.2em;
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 .composition-bar {
@@ -173,7 +208,45 @@
 
 /* ---- AI 투자 코치 ---- */
 .ai-coach-layout {
-  align-items: start;
+  align-items: stretch;
+}
+
+.ai-form-card {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-form-actions {
+  margin-top: auto;
+  padding-top: var(--space-6);
+}
+
+.ai-answer-panel {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-answer-panel > [data-ai-empty],
+.ai-answer-panel > [data-ai-error],
+.ai-answer-panel > [data-ai-loading],
+.ai-answer-panel > [data-ai-result] {
+  flex: 1;
+}
+
+.ai-loading-card {
+  height: 100%;
+}
+
+.ai-answer-panel > [data-ai-result]:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-answer-panel > [data-ai-result] .ai-result-grid {
+  flex: 1;
+  align-content: start;
 }
 
 .ai-coach-context {
@@ -219,6 +292,7 @@
   align-items: flex-start;
   gap: var(--space-3);
   min-height: 220px;
+  height: 100%;
   justify-content: center;
   border-style: dashed;
   color: var(--color-text-muted);
@@ -417,18 +491,41 @@
 }
 
 /* ================= 문의하기 (contact.html) ================= */
-.contact-layout {
-  max-width: 640px;
-  margin-inline: auto;
+.contact-grid {
+  align-items: stretch;
+  margin-bottom: var(--space-6);
+}
+
+.contact-fields-card,
+.contact-message-card {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-message-input {
+  flex: 1;
+  min-height: 12rem;
+  resize: none;
+}
+
+.contact-submit-btn {
+  max-width: 100%;
 }
 
 .contact-status {
   margin-top: var(--space-6);
 }
 
+@media (max-width: 1023px) {
+  .contact-message-input {
+    min-height: 8rem;
+  }
+}
+
 /* ================= 반응형 ================= */
 @media (max-width: 767px) {
-  .result-summary-grid {
+  .result-secondary-grid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-3);
   }
@@ -447,7 +544,7 @@
 }
 
 @media (max-width: 420px) {
-  .result-summary-grid {
+  .result-secondary-grid {
     grid-template-columns: 1fr;
   }
 }
