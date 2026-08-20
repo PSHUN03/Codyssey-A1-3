@@ -1,0 +1,29 @@
+# 환경 변수 (실제 키 절대 커밋 금지)
+.env
+.env.local
+.env.*.local
+
+# Vercel
+.vercel
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node (Vercel CLI 등 도구용, 프로젝트 자체는 Node 미사용)
+node_modules/
+
+# OS 잡파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 에디터
+.vscode/
+.idea/
+
+# 로그
+*.log
