@@ -7,7 +7,7 @@
 ## 핵심 기능
 
 - 초기금액/월적립액/투자기간(일·월·년)/목표수익률/복리주기(연·월·일) 입력 및 실시간 검증
-- 결과 요약 카드 4종(카운트업 애니메이션) + 순수 SVG 연도별 성장 그래프(원금 vs 평가금액)
+- 결과 요약(최종 평가금액 강조 + 4개 지표, 카운트업 애니메이션) + 순수 SVG 연도별 성장 그래프(원금 vs 평가금액)
 - 연도별 상세 표, CSV 내보내기, URL 쿼리스트링 및 결과 이미지(PNG) 저장·공유
 - **AI 투자 코치**: 계산 결과 + 목표 문장을 분석해 달성 가능성·부족분·실행 조언 3가지 제공
 - 빈 입력 / API 오류 / 타임아웃 3종 실패 처리 및 재시도
@@ -46,12 +46,20 @@ A1-3/
 | `GEMINI_MODEL` | 선택 | 기본값 `gemini-2.0-flash` |
 | `DISCORD_WEBHOOK_URL` | 선택 | 문의 알림용 Discord 웹훅 URL (미설정 시 접수는 성공, 알림만 생략) |
 
-`.env.example`을 복사해 `.env`를 만들고 값을 채웁니다. `.env`는 `.gitignore`에 포함되어 커밋되지 않습니다.
+`.env.example`을 복사해 `.env`를 만들고 값을 채웁니다(`.env`는 `.gitignore`에 포함되어 커밋되지 않음).
+
+```bash
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.0-flash
+DISCORD_WEBHOOK_URL=your_discord_webhook_url_here
+```
 
 ## 로컬 실행
 
 ```bash
-python -m http.server 5500   # 프론트엔드 정적 서버 (api/*.py는 로컬 미동작, Vercel CLI 필요 시 별도)
+git clone https://github.com/PSHUN03/Codyssey-A1-3.git
+cd Codyssey-A1-3
+python -m http.server 5500   # 프론트엔드 정적 서버 (api/*.py는 로컬 미동작, 배포 후 확인)
 # 브라우저에서 http://localhost:5500/index.html 접속
 ```
 
