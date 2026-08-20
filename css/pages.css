@@ -62,10 +62,12 @@
 .result-hero-card {
   padding: var(--space-8);
   margin-bottom: var(--space-4);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .result-metric-value.is-hero {
-  font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
 }
 
 .result-secondary-grid {
@@ -77,6 +79,8 @@
 
 .result-metric-card {
   padding: var(--space-4);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .composition-card {
@@ -86,14 +90,6 @@
 
 .result-footer-group {
   margin-top: auto;
-}
-
-.share-status {
-  min-height: 1.2em;
-  margin-top: var(--space-2);
-  font-size: var(--fs-xs);
-  color: var(--color-text-muted);
-  text-align: center;
 }
 
 .composition-bar {
@@ -131,14 +127,6 @@
   color: var(--color-text-primary);
   font-family: var(--font-numeric);
   margin-left: 4px;
-}
-
-.composition-insight {
-  margin-top: var(--space-4);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-divider);
-  font-size: var(--fs-small);
-  color: var(--color-text-secondary);
 }
 
 .disclaimer-note {

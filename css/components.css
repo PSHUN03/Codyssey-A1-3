@@ -507,10 +507,12 @@
 
 .result-metric-value {
   font-family: var(--font-numeric);
-  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  font-size: clamp(1.25rem, 0.95rem + 1.1vw, 1.75rem);
   font-weight: var(--fw-bold);
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .result-metric-value.is-accent {
@@ -521,4 +523,5 @@
   margin-top: var(--space-2);
   font-size: var(--fs-xs);
   color: var(--color-text-muted);
+  overflow-wrap: anywhere;
 }

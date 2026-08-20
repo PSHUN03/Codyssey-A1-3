@@ -128,14 +128,6 @@ window.FructusUI = (function () {
 
     document.querySelector("[data-composition-principal-pct]").textContent = principalPct.toFixed(1) + "%";
     document.querySelector("[data-composition-interest-pct]").textContent = interestPct.toFixed(1) + "%";
-
-    var insight = document.querySelector("[data-composition-insight]");
-    if (s.totalInterest <= 0) {
-      insight.textContent = "이 조건에서는 발생하는 수익이 없어요. 기간이나 수익률을 조정해 보세요.";
-    } else {
-      insight.textContent =
-        "최종 평가금액의 " + interestPct.toFixed(1) + "%는 수익으로 만들어졌어요.";
-    }
   }
 
   function renderTable(schedule) {
