@@ -17,7 +17,7 @@ MAX_BODY_BYTES = 8000
 REQUEST_TIMEOUT_SECONDS = 20
 MAX_OUTPUT_TOKENS = 700
 GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
-GEMINI_MODEL = "gemini-2.5-flash-lite"
+GEMINI_MODEL = "gemini-2.5-flash"
 
 REQUIRED_NUMERIC_FIELDS = [
     "principal",
@@ -138,16 +138,44 @@ def _extract_json(text):
     }
 
 
+def _upstream_reason(response):
+    """Gemini가 돌려준 에러에서 원인만 뽑아낸다.
+
+    Google의 에러 본문에는 API 키가 포함되지 않으므로 status/message만
+    추려서 노출해도 안전하다. 원인 파악이 불가능한 '일시적인 오류'
+    메시지만 반복되는 상황을 막기 위한 진단용.
+    """
+    if response is None:
+        return "unknown"
+    try:
+        detail = (response.json() or {}).get("error", {})
+        reason = detail.get("status") or ""
+        message = detail.get("message") or ""
+        combined = " ".join(part for part in (reason, message) if part).strip()
+    except Exception:
+        combined = ""
+    return "{} {}".format(response.status_code, combined[:200]).strip()
+
+
 def _call_gemini(prompt, api_key, model):
-    url = "{}/{}:generateContent?key={}".format(GEMINI_API_BASE, model, api_key)
+    url = "{}/{}:generateContent".format(GEMINI_API_BASE, model)
     body = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
             "maxOutputTokens": MAX_OUTPUT_TOKENS,
             "temperature": 0.6,
+            # 2.5 계열은 기본적으로 '생각(thinking)' 토큰을 소비한다. 이를 끄지
+            # 않으면 maxOutputTokens 예산을 내부 추론에 다 써버려 본문이 빈
+            # 응답이 돌아올 수 있으므로, 예산 전체를 실제 답변에 쓰도록 비활성화한다.
+            "thinkingConfig": {"thinkingBudget": 0},
         },
     }
-    response = requests.post(url, json=body, timeout=REQUEST_TIMEOUT_SECONDS)
+    # 키는 URL 쿼리스트링 대신 헤더로 보낸다. URL에 담으면 프록시/로그에
+    # 키가 그대로 남을 수 있기 때문이다.
+    headers = {"x-goog-api-key": api_key}
+    response = requests.post(
+        url, json=body, headers=headers, timeout=REQUEST_TIMEOUT_SECONDS
+    )
     response.raise_for_status()
     payload = response.json()
     candidates = payload.get("candidates") or []
@@ -219,10 +247,26 @@ class handler(BaseHTTPRequestHandler):
             if status == 429:
                 _json_response(self, 429, {"error": "요청이 많습니다. 잠시 후 다시 시도해 주세요."})
             else:
-                _json_response(self, 502, {"error": "AI 서비스 호출 중 오류가 발생했습니다."})
+                # 상태 코드와 Google이 준 사유를 함께 노출한다(키는 포함되지 않는다).
+                # 원인 불명의 "일시적인 오류"만 반복되면 디버깅이 불가능하기 때문.
+                _json_response(
+                    self,
+                    502,
+                    {
+                        "error": "AI 서비스 호출 중 오류가 발생했습니다.",
+                        "detail": _upstream_reason(exc.response),
+                    },
+                )
             return
-        except (requests.exceptions.RequestException, ValueError, json.JSONDecodeError, KeyError):
-            _json_response(self, 502, {"error": "AI 응답을 처리하지 못했습니다. 다시 시도해 주세요."})
+        except (requests.exceptions.RequestException, ValueError, json.JSONDecodeError, KeyError) as exc:
+            _json_response(
+                self,
+                502,
+                {
+                    "error": "AI 응답을 처리하지 못했습니다. 다시 시도해 주세요.",
+                    "detail": "{}: {}".format(type(exc).__name__, str(exc)[:200]),
+                },
+            )
             return
         except Exception:
             _json_response(self, 500, {"error": "일시적인 오류가 발생했습니다."})

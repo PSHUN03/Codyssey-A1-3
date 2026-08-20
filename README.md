@@ -20,7 +20,7 @@
 | 프론트엔드 | 순수 HTML / CSS / JavaScript (프레임워크·차트 라이브러리 미사용) |
 | 타이포그래피 | Hana2 웹폰트 자체 호스팅(WOFF2, 6종 굵기 + 숫자 전용 CM 컷) |
 | 백엔드 | Vercel Serverless Functions (Python, `BaseHTTPRequestHandler`) |
-| AI API | Google Gemini API (`gemini-2.5-flash-lite`) |
+| AI API | Google Gemini API (`gemini-2.5-flash`) |
 | 자동화 | Discord Webhook (문의 알림) |
 | 배포 | Vercel + Vercel Web Analytics |
 
