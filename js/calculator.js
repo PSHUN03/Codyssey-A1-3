@@ -54,6 +54,8 @@ window.FructusCalculator = (function () {
 
     if (!isFiniteNumber(input.annualRatePercent)) {
       errors.annualRatePercent = "수익률을 입력해 주세요.";
+    } else if (!Number.isInteger(input.annualRatePercent)) {
+      errors.annualRatePercent = "수익률은 정수로만 입력할 수 있습니다.";
     } else if (input.annualRatePercent < LIMITS.RATE_MIN || input.annualRatePercent > LIMITS.RATE_MAX) {
       errors.annualRatePercent = LIMITS.RATE_MIN + "% ~ " + LIMITS.RATE_MAX + "% 사이로 입력해 주세요.";
     }

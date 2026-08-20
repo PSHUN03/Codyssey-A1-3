@@ -278,7 +278,15 @@ window.FructusUI = (function () {
       els.annualRateNumber.value = els.annualRateRange.value;
     });
     els.annualRateNumber.addEventListener("input", function () {
-      els.annualRateRange.value = els.annualRateNumber.value;
+      var rounded = Math.round(Fmt.parseNumber(els.annualRateNumber.value));
+      if (!isNaN(rounded)) els.annualRateRange.value = rounded;
+    });
+    els.annualRateNumber.addEventListener("blur", function () {
+      var rounded = Math.round(Fmt.parseNumber(els.annualRateNumber.value));
+      if (!isNaN(rounded)) {
+        els.annualRateNumber.value = rounded;
+        els.annualRateRange.value = rounded;
+      }
     });
 
     form.addEventListener("submit", function (event) {
