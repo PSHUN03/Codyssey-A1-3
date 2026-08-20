@@ -29,7 +29,6 @@ Vercel 대시보드 → 프로젝트 → **Settings → Environment Variables**�
 | Key | Value | 비고 |
 |---|---|---|
 | `GEMINI_API_KEY` | 발급받은 Gemini API 키 | 필수. 없으면 AI 코치가 500 오류 반환 |
-| `GEMINI_MODEL` | `gemini-2.0-flash` | 선택. 미설정 시 코드 기본값 사용 |
 | `DISCORD_WEBHOOK_URL` | 발급받은 Discord 웹훅 URL | 선택(보너스). 미설정 시 문의는 "접수 성공 + 미전송"으로 폴백 |
 
 값을 저장한 뒤에는 **Deployments 탭에서 최신 배포를 Redeploy**해야 환경 변수가 함수에 반영된다(최초 배포 이후 환경 변수를 추가/변경한 경우 항상 재배포 필요).

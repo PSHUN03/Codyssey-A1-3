@@ -17,6 +17,7 @@ MAX_BODY_BYTES = 8000
 REQUEST_TIMEOUT_SECONDS = 20
 MAX_OUTPUT_TOKENS = 700
 GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
+GEMINI_MODEL = "gemini-2.0-flash"
 
 REQUIRED_NUMERIC_FIELDS = [
     "principal",
@@ -189,11 +190,10 @@ class handler(BaseHTTPRequestHandler):
             _json_response(self, 500, {"error": "AI 코치를 사용할 수 없습니다. 서버 설정을 확인해 주세요."})
             return
 
-        model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
         prompt = _build_prompt(data)
 
         try:
-            raw_text = _call_gemini(prompt, api_key, model)
+            raw_text = _call_gemini(prompt, api_key, GEMINI_MODEL)
             result = _extract_json(raw_text)
         except requests.exceptions.Timeout:
             _json_response(self, 504, {"error": "AI 응답이 지연되고 있습니다. 잠시 후 다시 시도해 주세요."})

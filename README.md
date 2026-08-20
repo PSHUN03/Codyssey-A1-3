@@ -43,14 +43,12 @@ A1-3/
 | 변수 | 필수 | 설명 |
 |---|---|---|
 | `GEMINI_API_KEY` | 필수 | Google AI Studio에서 발급한 Gemini API 키 |
-| `GEMINI_MODEL` | 선택 | 기본값 `gemini-2.0-flash` |
 | `DISCORD_WEBHOOK_URL` | 선택 | 문의 알림용 Discord 웹훅 URL (미설정 시 접수는 성공, 알림만 생략) |
 
 `.env.example`을 복사해 `.env`를 만들고 값을 채웁니다(`.env`는 `.gitignore`에 포함되어 커밋되지 않음).
 
 ```bash
 GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.0-flash
 DISCORD_WEBHOOK_URL=your_discord_webhook_url_here
 ```
 
