@@ -172,6 +172,11 @@
     box-shadow var(--duration-fast) var(--ease-standard);
 }
 
+.input[type="number"],
+.input[inputmode="numeric"] {
+  font-family: var(--font-numeric);
+}
+
 .input-unit {
   position: absolute;
   right: var(--space-4);
@@ -273,6 +278,7 @@
 .range-value {
   min-width: 4.5rem;
   text-align: right;
+  font-family: var(--font-numeric);
   font-weight: var(--fw-semibold);
   color: var(--color-accent);
 }
@@ -357,6 +363,7 @@
 
 /* ---- Tooltip (차트용) ---- */
 .chart-tooltip {
+  font-family: var(--font-numeric);
   position: absolute;
   z-index: var(--z-tooltip);
   background: var(--color-text-primary);
@@ -464,6 +471,11 @@
   white-space: nowrap;
 }
 
+.data-table td:not(:first-child) {
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums;
+}
+
 .data-table th:first-child,
 .data-table td:first-child {
   text-align: left;
@@ -494,6 +506,7 @@
 }
 
 .result-metric-value {
+  font-family: var(--font-numeric);
   font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
   font-weight: var(--fw-bold);
   letter-spacing: -0.02em;

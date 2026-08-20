@@ -21,6 +21,7 @@ h3 {
 
 h1 {
   font-size: var(--fs-display);
+  font-weight: var(--fw-heavy);
 }
 
 h2 {

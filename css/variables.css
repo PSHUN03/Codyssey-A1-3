@@ -31,8 +31,9 @@
   --color-overlay: rgba(17, 17, 17, 0.4);
 
   /* ---- Typography ---- */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Pretendard Variable", "Apple SD Gothic Neo",
-    "Segoe UI", "Malgun Gothic", "Noto Sans KR", Roboto, sans-serif;
+  --font-sans: "Hana2", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI",
+    "Malgun Gothic", "Noto Sans KR", Roboto, sans-serif;
+  --font-numeric: "Hana2 CM", "Hana2", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --fs-display: clamp(2.25rem, 1.7rem + 2.2vw, 3.5rem); /* 40~56px 큰 제목 */
   --fs-h1: clamp(1.5rem, 1.3rem + 1vw, 2rem); /* 24~32px 일반 제목 */
@@ -42,10 +43,12 @@
   --fs-small: 0.875rem; /* 12~14px 보조 텍스트 */
   --fs-xs: 0.8125rem;
 
+  --fw-light: 300;
   --fw-regular: 400;
   --fw-medium: 500;
-  --fw-semibold: 600;
+  --fw-semibold: 700;
   --fw-bold: 700;
+  --fw-heavy: 800;
 
   --lh-tight: 1.25;
   --lh-normal: 1.55;
