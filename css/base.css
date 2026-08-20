@@ -5,6 +5,8 @@ body {
   font-size: var(--fs-body);
   line-height: var(--lh-normal);
   font-weight: var(--fw-regular);
+  word-break: keep-all;
+  overflow-wrap: break-word;
   transition: background-color var(--duration-base) var(--ease-standard),
     color var(--duration-base) var(--ease-standard);
 }

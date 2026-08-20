@@ -14,12 +14,11 @@
 }
 
 .hero h1 {
-  max-width: 18ch;
   margin-bottom: var(--space-4);
 }
 
 .hero-sub {
-  max-width: 56ch;
+  max-width: 64rem;
   font-size: var(--fs-body-lg);
 }
 
@@ -221,7 +220,7 @@
 
 /* ================= 복리 알아보기 (learn.html) ================= */
 .prose {
-  max-width: 72ch;
+  max-width: 100%;
 }
 
 .prose p + p,
@@ -334,7 +333,7 @@
 
 /* ================= FAQ (faq.html) ================= */
 .faq-list {
-  max-width: 76ch;
+  max-width: 100%;
 }
 
 .faq-search {
@@ -345,6 +344,7 @@
 /* ================= 문의하기 (contact.html) ================= */
 .contact-layout {
   max-width: 640px;
+  margin-inline: auto;
 }
 
 .contact-status {
