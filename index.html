@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("fructus-theme");
+      if (saved === "dark" || saved === "light") {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    } catch (e) {}
+  })();
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fructus — 복리 계산기</title>
+<meta name="description" content="초기 금액과 월 적립액, 목표 수익률을 입력하면 복리로 자라나는 자산을 그래프와 표로 보여주고, AI 투자 코치가 목표 달성 전략을 제안합니다." />
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/variables.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/animations.css" />
+<link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="site-header">
+  <nav class="nav container" aria-label="주요 메뉴">
+    <a href="index.html" class="nav-brand"><span class="nav-brand-mark">●</span> Fructus</a>
+    <button class="nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="primary-menu">
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-menu" id="primary-menu" data-nav-menu>
+      <a href="index.html" class="nav-link" aria-current="page">홈 / 계산기</a>
+      <a href="learn.html" class="nav-link">복리 알아보기</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link">문의하기</a>
+      <div class="nav-actions">
+        <button class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="다크 모드로 전환"></button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="container">
+      <p class="hero-eyebrow">FRUCTUS — 복리 계산기</p>
+      <h1>시간이 만드는 결실을,<br />숫자로 미리 확인하세요</h1>
+      <p class="hero-sub">
+        초기 금액과 월 적립액, 목표 수익률을 입력하면 복리로 자라나는 자산의 흐름을
+        그래프와 표로 보여줍니다. 계산이 끝나면 AI 투자 코치가 목표까지의 거리와
+        실행 전략을 제안합니다.
+      </p>
+      <div class="hero-actions">
+        <a href="#calculator" class="btn btn-primary">지금 계산하기</a>
+        <a href="learn.html" class="btn btn-secondary">복리 공식 알아보기</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="calculator">
+    <div class="container">
+      <div class="section-heading">
+        <h2>복리 계산기</h2>
+        <p>값을 입력하면 아래 결과·그래프·표가 즉시 업데이트됩니다.</p>
+      </div>
+
+      <div class="grid calculator-layout">
+        <div class="col-span-5">
+          <form class="card calc-card" data-calc-form novalidate>
+
+            <div class="field">
+              <label class="field-label" for="principal">초기 금액</label>
+              <div class="input-wrap">
+                <input class="input" type="text" inputmode="numeric" id="principal" name="principal" value="5,000,000" aria-describedby="principal-sub" />
+                <span class="input-unit">원</span>
+              </div>
+              <div class="chip-group">
+                <button type="button" class="chip" data-quick-add="100000" data-target="principal">+10만</button>
+                <button type="button" class="chip" data-quick-add="1000000" data-target="principal">+100만</button>
+                <button type="button" class="chip" data-quick-add="10000000" data-target="principal">+1000만</button>
+              </div>
+              <p class="field-hint" id="principal-sub" data-sub-display="principal">500만원</p>
+              <p class="field-error" data-error-for="principal"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="monthlyPayment">월 적립액</label>
+              <div class="input-wrap">
+                <input class="input" type="text" inputmode="numeric" id="monthlyPayment" name="monthlyPayment" value="300,000" aria-describedby="monthly-sub" />
+                <span class="input-unit">원</span>
+              </div>
+              <div class="chip-group">
+                <button type="button" class="chip" data-quick-add="100000" data-target="monthlyPayment">+10만</button>
+                <button type="button" class="chip" data-quick-add="500000" data-target="monthlyPayment">+50만</button>
+                <button type="button" class="chip" data-quick-add="1000000" data-target="monthlyPayment">+100만</button>
+              </div>
+              <p class="field-hint" id="monthly-sub" data-sub-display="monthlyPayment">30만원</p>
+              <p class="field-error" data-error-for="monthlyPayment"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="periodValue">투자 기간</label>
+              <div style="display:flex; gap:8px;">
+                <input class="input" type="number" min="1" step="1" id="periodValue" name="periodValue" value="10" style="flex:1;" />
+                <div class="unit-toggle" role="group" aria-label="기간 단위">
+                  <button type="button" data-unit="day" aria-pressed="false">일</button>
+                  <button type="button" data-unit="month" aria-pressed="false">월</button>
+                  <button type="button" data-unit="year" aria-pressed="true">년</button>
+                </div>
+              </div>
+              <p class="field-error" data-error-for="periodValue"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="annualRateNumber">목표 수익률 (연, %)</label>
+              <div class="range-row">
+                <input class="range" type="range" id="annualRateRange" min="-50" max="100" step="0.1" value="5" />
+                <input class="input range-value" style="width:5.5rem; height:2.5rem; text-align:right;" type="number" id="annualRateNumber" min="-50" max="100" step="0.01" value="5" />
+              </div>
+              <p class="field-error" data-error-for="annualRatePercent"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="compounding">복리 주기</label>
+              <select class="select" id="compounding" name="compounding">
+                <option value="annual">연복리</option>
+                <option value="monthly" selected>월복리</option>
+                <option value="daily">일복리</option>
+              </select>
+              <p class="field-error" data-error-for="compounding"></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" data-calc-submit>계산하기</button>
+          </form>
+        </div>
+
+        <div class="col-span-7">
+          <div data-result-section aria-live="polite">
+            <div class="result-summary-grid">
+              <div class="card result-metric-card">
+                <p class="result-metric-label">최종 평가금액</p>
+                <p class="result-metric-value is-accent" data-metric-final>0원</p>
+                <p class="result-metric-sub" data-metric-final-sub></p>
+              </div>
+              <div class="card result-metric-card">
+                <p class="result-metric-label">총 납입 원금</p>
+                <p class="result-metric-value" data-metric-principal>0원</p>
+              </div>
+              <div class="card result-metric-card">
+                <p class="result-metric-label">총 이자 수익</p>
+                <p class="result-metric-value is-accent" data-metric-interest>0원</p>
+              </div>
+              <div class="card result-metric-card">
+                <p class="result-metric-label">총 수익률</p>
+                <p class="result-metric-value" data-metric-rate>0%</p>
+              </div>
+            </div>
+
+            <div class="disclaimer-note">
+              <span aria-hidden="true">ⓘ</span>
+              <span>이 결과는 수학적 시뮬레이션이며 투자 자문이나 수익을 보장하지 않습니다. 세금과 물가 상승은 반영되지 않았습니다.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chart">
+    <div class="container">
+      <div class="chart-section-head">
+        <h2>연도별 성장 그래프</h2>
+        <div class="chart-legend">
+          <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:var(--chart-principal)"></span>누적 원금</span>
+          <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:var(--chart-growth)"></span>평가금액(이자 포함)</span>
+        </div>
+      </div>
+      <div class="card chart-container" data-chart-container></div>
+    </div>
+  </section>
+
+  <section id="table">
+    <div class="container">
+      <div class="table-section-head">
+        <h2>연도별 상세 표</h2>
+        <button type="button" class="btn btn-secondary btn-sm" data-csv-export>표 CSV 내보내기</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>연차</th>
+              <th>누적 납입 원금</th>
+              <th>해당 연도 이자</th>
+              <th>누적 이자</th>
+              <th>연말 평가금액</th>
+            </tr>
+          </thead>
+          <tbody data-table-body></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai-coach">
+    <div class="container">
+      <div class="grid ai-coach-layout">
+        <div class="col-span-5">
+          <div class="section-heading">
+            <h2>AI 투자 코치</h2>
+            <p>계산 결과를 바탕으로, 목표 달성 가능성과 실행 전략을 AI가 진단합니다.</p>
+          </div>
+          <form data-ai-form>
+            <div class="field">
+              <label class="field-label" for="ai-goal">지금 상황이나 목표를 알려주세요</label>
+              <textarea class="textarea" id="ai-goal" data-ai-goal maxlength="400" placeholder="예: 35살에 전세보증금 3억을 만들고 싶어요. 지금처럼 계속 투자해도 될까요?"></textarea>
+              <div class="char-counter" data-ai-counter>0 / 300</div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" data-ai-submit>
+              <span class="btn-label">AI 코치에게 물어보기</span>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-block" data-ai-retry hidden style="margin-top:8px;">다시 시도</button>
+          </form>
+        </div>
+
+        <div class="col-span-7">
+          <div data-ai-error hidden aria-live="assertive"></div>
+
+          <div data-ai-loading hidden aria-live="polite">
+            <div class="skeleton ai-skeleton-block" style="width:60%;"></div>
+            <div class="skeleton ai-skeleton-block" style="width:100%; height:4.5rem;"></div>
+            <div class="skeleton ai-skeleton-block" style="width:100%; height:4.5rem;"></div>
+            <p class="ai-elapsed" data-ai-elapsed>0초 경과</p>
+          </div>
+
+          <div data-ai-result hidden aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="nav-brand"><span class="nav-brand-mark">●</span> Fructus</span>
+      <div class="footer-links">
+        <a href="learn.html">복리 알아보기</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">문의하기</a>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      Fructus는 학습 목적의 복리 계산 시뮬레이션 서비스입니다. 실제 투자 결과를 보장하지 않으며,
+      투자 자문에 해당하지 않습니다. 세금·수수료·물가 상승은 계산에 반영되지 않았습니다.
+    </p>
+  </div>
+</footer>
+
+<script src="js/format.js"></script>
+<script src="js/calculator.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/analytics.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/theme.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
