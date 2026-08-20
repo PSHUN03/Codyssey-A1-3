@@ -17,7 +17,7 @@ MAX_BODY_BYTES = 8000
 REQUEST_TIMEOUT_SECONDS = 20
 MAX_OUTPUT_TOKENS = 700
 GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-2.5-flash-lite"
 
 REQUIRED_NUMERIC_FIELDS = [
     "principal",
