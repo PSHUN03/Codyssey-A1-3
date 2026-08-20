@@ -16,10 +16,24 @@ MAX_GOAL_LENGTH = 300
 MAX_BODY_BYTES = 8000
 REQUEST_TIMEOUT_SECONDS = 20
 # Gemini 3 계열은 답변 전에 내부 '생각(thinking)' 토큰을 소비하며, 그 양도
-# maxOutputTokens 예산에서 함께 차감된다. 700으로 두면 생각만 하다 예산이
-# 바닥나 본문이 빈 응답이 돌아올 수 있어, 실제 답변이 담길 여유까지 포함해
-# 상한을 잡는다(과금 방어용 상한 자체는 그대로 유지).
-MAX_OUTPUT_TOKENS = 2048
+# maxOutputTokens 예산에서 함께 차감된다. 예산이 빠듯하면 생각하다가 본문이
+# 중간에 잘려(JSON이 닫히지 않은 채) 돌아오므로, 실제 답변이 온전히 담길
+# 여유까지 포함해 상한을 잡는다(과금 방어용 상한 자체는 그대로 유지).
+MAX_OUTPUT_TOKENS = 4096
+
+# 응답을 반드시 이 구조의 JSON으로만 뱉도록 Gemini에 강제한다. 모델이
+# 마크다운 코드펜스나 설명 문장을 섞어 보내 파싱이 깨지는 문제를
+# 프롬프트 지시가 아니라 API 차원에서 원천 차단하기 위함이다.
+RESPONSE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "diagnosis": {"type": "string"},
+        "gap": {"type": "string"},
+        "actions": {"type": "array", "items": {"type": "string"}},
+        "caution": {"type": "string"},
+    },
+    "required": ["diagnosis", "gap", "actions", "caution"],
+}
 GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
 GEMINI_MODEL = "gemini-3.6-flash"
 
@@ -122,12 +136,22 @@ def _build_prompt(data):
 
 def _extract_json(text):
     cleaned = text.strip()
+    # responseSchema를 쓰면 순수 JSON이 오지만, 혹시 코드펜스가 섞여 와도
+    # 깨지지 않도록 방어적으로 벗겨낸다.
     cleaned = re.sub(r"^```(?:json)?", "", cleaned.strip())
     cleaned = re.sub(r"```$", "", cleaned.strip())
-    match = re.search(r"\{.*\}", cleaned, re.DOTALL)
-    if not match:
-        raise ValueError("no-json-found")
-    parsed = json.loads(match.group(0))
+
+    try:
+        parsed = json.loads(cleaned)
+    except (ValueError, TypeError):
+        match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+        if not match:
+            # 응답이 잘렸는지 등을 바로 알 수 있도록 앞부분을 함께 남긴다.
+            raise ValueError("no-json-found text={!r}".format(cleaned[:120]))
+        parsed = json.loads(match.group(0))
+
+    if not isinstance(parsed, dict):
+        raise ValueError("not-an-object")
 
     actions = parsed.get("actions")
     if not isinstance(actions, list) or len(actions) < 1:
@@ -161,30 +185,64 @@ def _upstream_reason(response):
     return "{} {}".format(response.status_code, combined[:200]).strip()
 
 
-def _call_gemini(prompt, api_key, model):
-    url = "{}/{}:generateContent".format(GEMINI_API_BASE, model)
+def _generation_config(with_thinking_level):
+    """generationConfig를 만든다.
+
+    thinkingLevel은 Gemini 3 계열 전용 옵션이라, 모델/API 버전에 따라
+    알 수 없는 필드로 거부될 수 있다. 그래서 이 값을 뺀 설정도 만들 수
+    있게 해두고, 거부당하면 호출부에서 한 번 더 시도한다.
+    """
+    config = {
+        "maxOutputTokens": MAX_OUTPUT_TOKENS,
+        "temperature": 0.6,
+        # 응답을 스키마에 맞는 순수 JSON으로만 받도록 강제한다.
+        "responseMimeType": "application/json",
+        "responseSchema": RESPONSE_SCHEMA,
+    }
+    if with_thinking_level:
+        # 내부 추론을 최소화해 토큰 예산을 실제 답변에 쓰게 한다.
+        config["thinkingLevel"] = "minimal"
+    return config
+
+
+def _post_gemini(url, api_key, prompt, with_thinking_level):
     body = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {
-            "maxOutputTokens": MAX_OUTPUT_TOKENS,
-            "temperature": 0.6,
-        },
+        "generationConfig": _generation_config(with_thinking_level),
     }
     # 키는 URL 쿼리스트링 대신 헤더로 보낸다. URL에 담으면 프록시/로그에
     # 키가 그대로 남을 수 있기 때문이다.
     headers = {"x-goog-api-key": api_key}
-    response = requests.post(
+    return requests.post(
         url, json=body, headers=headers, timeout=REQUEST_TIMEOUT_SECONDS
     )
+
+
+def _call_gemini(prompt, api_key, model):
+    url = "{}/{}:generateContent".format(GEMINI_API_BASE, model)
+
+    response = _post_gemini(url, api_key, prompt, with_thinking_level=True)
+    # thinkingLevel을 모르는 모델이면 400이 오므로, 그 옵션만 빼고 재시도한다.
+    if response.status_code == 400 and "thinking" in response.text.lower():
+        response = _post_gemini(url, api_key, prompt, with_thinking_level=False)
+
     response.raise_for_status()
     payload = response.json()
+
     candidates = payload.get("candidates") or []
     if not candidates:
-        raise ValueError("empty-candidates")
-    parts = candidates[0].get("content", {}).get("parts") or []
+        # 안전 필터 등으로 후보가 아예 없는 경우 그 사유를 그대로 노출한다.
+        feedback = payload.get("promptFeedback") or {}
+        raise ValueError("empty-candidates {}".format(feedback.get("blockReason") or ""))
+
+    candidate = candidates[0]
+    parts = (candidate.get("content") or {}).get("parts") or []
     text = "".join(p.get("text", "") for p in parts)
+
     if not text:
-        raise ValueError("empty-text")
+        # 토큰 예산이 생각에 모두 소진되면 본문 없이 MAX_TOKENS로 끝난다.
+        raise ValueError("empty-text finishReason={}".format(candidate.get("finishReason")))
+
     return text
 
 
